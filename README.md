@@ -1,4 +1,4 @@
-# ResDaddyOld Project
+# ResDaddy Project
 
 This is a full-stack web application with a React frontend and a Python (Flask) backend.
 
