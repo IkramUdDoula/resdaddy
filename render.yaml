@@ -22,4 +22,4 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.4
       - key: OPENROUTER_API_KEY
-        fromSecret: true
+        value: ""
