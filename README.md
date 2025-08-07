@@ -36,13 +36,13 @@ ResDaddyOld-main/
 
 ### Configuration
 
-To use the OpenAI integration, you need to add your API key.
+To use the AI integration, you need to add your API key from OpenRouter.
 
 1.  In the `backend` directory, create a file named `.env`.
-2.  Add the following line to the `.env` file, replacing `your_api_key_here` with your actual OpenAI API key:
+2.  Add the following line to the `.env` file, replacing `your_api_key_here` with your actual OpenRouter API key:
 
     ```
-    OPENAI_API_KEY='your_api_key_here'
+    OPENROUTER_API_KEY='your_api_key_here'
     ```
 
 ### Installation & Running
