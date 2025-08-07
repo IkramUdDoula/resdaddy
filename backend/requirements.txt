@@ -1,7 +1,8 @@
 flask
-flask-cors
-openai==0.28
-python-docx
-PyPDF2
-fpdf
+gunicorn
 python-dotenv
+flask-cors
+PyPDF2
+python-docx
+fpdf
+openai
