@@ -39,14 +39,21 @@ Using the Phase 1 analysis, rewrite and enhance the CV content for stronger alig
 **YOU MAY MODIFY:**
 
 * Career Objective / Summary: Rewrite to align with the JD, using relevant keywords and clear role focus.
+
 * Work Experience:
 
   * Sensibly align job titles to JD language.
   * Rewrite responsibilities/achievements with impact, measurable outcomes, and relevant tools.
-  * Ensure 4–6 bullet points per experience.
+  * Ensure at least 4 bullet points per experience. But Latest Experience must have at least 6 points.
+  * Each bullet points must be 30 words.
+  * Bullet points must have diverse measurable metrics like amount or percentage.
+  * Bullet points must be believable and and seem achievable. Do not add unrealistic bullet points. 
+  * Bullet points should follow a structure to show what the applicant did, how did they do it, what was the responsibility, what was the impact, what was the result.
+
 * Skills:
 
   * Add/remove or reword skills to match JD’s requirements, including relevant technologies/tools.
+
 * Certifications, Awards, Projects, Interests:
 
   * Enhance clarity and relevance.

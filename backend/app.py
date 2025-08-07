@@ -25,7 +25,7 @@ def analyze_cv():
     print('Received request to /analyze-cv')
 
     # --- Config ---
-    OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+    OPENROUTER_API_KEY = os.environ.get('OPENROUTER_API_KEY')
     PROMPT_PATH = os.path.join(os.path.dirname(__file__), 'prompt.md')
 
     # --- Validate request ---
@@ -78,22 +78,23 @@ def analyze_cv():
     full_prompt = f"""{prompt_template}\n\nCV:\n{cv_text}\n\nJob Description:\n{job_desc}"""
     print('Prepared prompt for OpenAI, length:', len(full_prompt))
 
-    # --- Query OpenAI ---
+    # --- Query OpenRouter ---
     try:
-        openai.api_key = OPENAI_API_KEY
-        print('Calling OpenAI API...')
+        openai.api_base = "https://openrouter.ai/api/v1"
+        openai.api_key = OPENROUTER_API_KEY
+        print('Calling OpenRouter API...')
         response = openai.ChatCompletion.create(
-            model='gpt-4.1',
+            model='google/gemini-2.0-flash-exp:free',
             messages=[{"role": "user", "content": full_prompt}],
-            max_tokens=3000,
+            max_tokens=50000,
             temperature=0.8
         )
         ai_output = response['choices'][0]['message']['content']
-        print('Received response from OpenAI, length:', len(ai_output))
+        print('Received response from OpenRouter, length:', len(ai_output))
     except Exception as e:
-        print('OpenAI API error:', str(e))
+        print('OpenRouter API error:', str(e))
         traceback.print_exc()
-        return jsonify({'error': f'OpenAI API error: {str(e)}'}), 500
+        return jsonify({'error': f'OpenRouter API error: {str(e)}'}), 500
 
     # --- Return AI output as JSON ---
     try:
