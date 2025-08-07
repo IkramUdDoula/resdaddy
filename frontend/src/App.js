@@ -27,7 +27,7 @@ const handleSubmit = async (e) => {
       formData.append('cv', cvFile);
       formData.append('job_desc', jobDesc);
       formData.append('use_crazy_prompt', isToggled);
-      const response = await fetch('http://localhost:5000/analyze-cv', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/analyze-cv`, {
         method: 'POST',
         body: formData,
       });

@@ -32,7 +32,7 @@ yarn-error.log*
 /backend/env/
 /backend/__pycache__/
 /backend/*.pyc
-/backend/.env.example
+/backend/.env
 /backend/.env
 
 # React frontend
@@ -42,7 +42,7 @@ yarn-error.log*
 /frontend/.env.local
 /frontend/.env.development.local
 /frontend/.env.test.local
-/frontend/.env.example
+/frontend/.env
 /frontend/npm-debug.log*
 /frontend/yarn-debug.log*
 /frontend/yarn-error.log*
