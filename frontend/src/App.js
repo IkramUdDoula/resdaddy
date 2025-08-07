@@ -8,6 +8,7 @@ function App() {
   const [cvFile, setCvFile] = useState(null);
   const [jobDesc, setJobDesc] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isToggled, setIsToggled] = useState(false);
   const navigate = useNavigate();
 
   const handleFileChange = (e) => {
@@ -25,6 +26,7 @@ const handleSubmit = async (e) => {
       const formData = new FormData();
       formData.append('cv', cvFile);
       formData.append('job_desc', jobDesc);
+      formData.append('use_crazy_prompt', isToggled);
       const response = await fetch('http://localhost:5000/analyze-cv', {
         method: 'POST',
         body: formData,
@@ -57,6 +59,13 @@ const handleSubmit = async (e) => {
           onChange={handleJobDescChange}
           required
         />
+        <div className="toggle-container">
+          <label className="toggle-switch">
+            <input type="checkbox" checked={isToggled} onChange={() => setIsToggled(!isToggled)} />
+            <span className="slider round"></span>
+          </label>
+          <span>Batshit Crazy</span>
+        </div>
         <button type="submit" disabled={loading}>Submit</button>
       </form>
       {loading && <div className="loader">Processing...</div>}

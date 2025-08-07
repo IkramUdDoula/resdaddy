@@ -4,6 +4,7 @@ load_dotenv()
 from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
 import os
+from models import DEFAULT_MODEL, FALLBACK_MODEL
 
 app = Flask(__name__)
 CORS(app)
@@ -26,7 +27,7 @@ def analyze_cv():
 
     # --- Config ---
     OPENROUTER_API_KEY = os.environ.get('OPENROUTER_API_KEY')
-    PROMPT_PATH = os.path.join(os.path.dirname(__file__), 'prompt.md')
+
 
     # --- Validate request ---
     if 'cv' not in request.files or 'job_desc' not in request.form:
@@ -35,6 +36,12 @@ def analyze_cv():
 
     cv_file = request.files['cv']
     job_desc = request.form['job_desc']
+    use_crazy_prompt = request.form.get('use_crazy_prompt') == 'true'
+
+    if use_crazy_prompt:
+        PROMPT_PATH = os.path.join(os.path.dirname(__file__), 'crazyPrompt.md')
+    else:
+        PROMPT_PATH = os.path.join(os.path.dirname(__file__), 'prompt.md')
     filename = secure_filename(cv_file.filename)
     ext = os.path.splitext(filename)[1].lower()
 
@@ -79,22 +86,35 @@ def analyze_cv():
     print('Prepared prompt for OpenAI, length:', len(full_prompt))
 
     # --- Query OpenRouter ---
+    # --- Query OpenRouter ---
+    openai.api_base = "https://openrouter.ai/api/v1"
+    openai.api_key = OPENROUTER_API_KEY
     try:
-        openai.api_base = "https://openrouter.ai/api/v1"
-        openai.api_key = OPENROUTER_API_KEY
-        print('Calling OpenRouter API...')
+        print(f'Calling OpenRouter API with model: {DEFAULT_MODEL}...')
         response = openai.ChatCompletion.create(
-            model='google/gemini-2.0-flash-exp:free',
+            model=DEFAULT_MODEL,
             messages=[{"role": "user", "content": full_prompt}],
-            max_tokens=50000,
-            temperature=0.8
+            max_tokens=10000,
+            temperature=0.7
         )
         ai_output = response['choices'][0]['message']['content']
-        print('Received response from OpenRouter, length:', len(ai_output))
+        print(f'Received response from {DEFAULT_MODEL}, length:', len(ai_output))
     except Exception as e:
-        print('OpenRouter API error:', str(e))
-        traceback.print_exc()
-        return jsonify({'error': f'OpenRouter API error: {str(e)}'}), 500
+        print(f'API call with {DEFAULT_MODEL} failed: {str(e)}')
+        print(f'Trying fallback model: {FALLBACK_MODEL}...')
+        try:
+            response = openai.ChatCompletion.create(
+                model=FALLBACK_MODEL,
+                messages=[{"role": "user", "content": full_prompt}],
+                max_tokens=10000,
+                temperature=0.7
+            )
+            ai_output = response['choices'][0]['message']['content']
+            print(f'Received response from {FALLBACK_MODEL}, length:', len(ai_output))
+        except Exception as fallback_e:
+            print(f'Fallback model {FALLBACK_MODEL} also failed: {str(fallback_e)}')
+            traceback.print_exc()
+            return jsonify({'error': f'API error with both default and fallback models: {str(fallback_e)}'}), 500
 
     # --- Return AI output as JSON ---
     try:
