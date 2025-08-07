@@ -1,0 +1,25 @@
+body { background: #f8fafc; margin: 0; font-family: 'Segoe UI', sans-serif; }
+
+.result-container { max-width: 900px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+.result-header-main { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 20px; }
+
+.result-header-main h1 { font-size: 2rem; color: #0a3d62; margin: 0; }
+
+.download-btn-result { background: #10b981; color: white; border: none; border-radius: 6px; padding: 8px 16px; font-size: 1rem; cursor: pointer; }
+
+.result-content { line-height: 1.6; color: #334155; }
+
+.result-content h1, .result-content h2, .result-content h3 { color: #1e293b; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-top: 24px; margin-bottom: 16px; }
+
+.result-content table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+
+.result-content th, .result-content td { border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
+
+.result-content th { background-color: #f1f5f9; font-weight: 600; }
+
+.result-content blockquote { border-left: 4px solid #cbd5e1; padding-left: 16px; color: #64748b; margin-left: 0; }
+
+.result-content code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: 'Courier New', monospace; }
+
+.result-content ul, .result-content ol { padding-left: 24px; }
