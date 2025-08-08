@@ -27,7 +27,9 @@ const handleSubmit = async (e) => {
       formData.append('cv', cvFile);
       formData.append('job_desc', jobDesc);
       formData.append('use_crazy_prompt', isToggled);
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/analyze-cv`, {
+      // In Docker Option B, the frontend is served behind Nginx which proxies /api -> backend:5000
+      // Use a relative path so no environment config is needed in the SPA.
+      const response = await fetch(`/api/analyze-cv`, {
         method: 'POST',
         body: formData,
       });

@@ -5,4 +5,4 @@ flask-cors
 PyPDF2
 python-docx
 fpdf
-openai
+openai<1.0.0
